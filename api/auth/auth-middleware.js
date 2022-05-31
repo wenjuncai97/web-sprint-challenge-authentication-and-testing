@@ -1,13 +1,11 @@
-const jwt = require('jsonwebtoken')
-const Users = require('../users/usersModel')
-const {JWT_SECRET} = require('../secrets/index')
 const User = require('../auth/user-model');
 
 const required = (req, res, next) => {
     if(!req.body.username || !req.body.password) {
-        return next({status: 422, message: "username and password is required"})
+        return next({status: 422, message: "username and password required"})
+    } else {
+        next();
     }
-    next();
 }
 
 const unique = async (req, res, next) => {
@@ -16,7 +14,7 @@ const unique = async (req, res, next) => {
         if(!users.length) {
             next();
         } else {
-            next({status: 422, message: 'username is taken'});
+            next({status: 422, message: 'username taken'});
         }
     } catch(err) {
         next(err);
@@ -25,7 +23,7 @@ const unique = async (req, res, next) => {
 
 const usernameExists = async (req, res, next) => {
     if(!req.body.username || !req.body.password) {
-        next({status: 401, message: "username and password are required"});
+        next({status: 401, message: "username and password required"});
     } else {
         try {
             const users = await User.findBy({username: req.body.username});
