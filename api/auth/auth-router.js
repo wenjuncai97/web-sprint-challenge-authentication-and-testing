@@ -3,8 +3,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
 const { BCRYPT_ROUNDS, JWT_SECRET } = require("../secrets");
-const Users = require('./user-model.js');
-
+const Users = require('./user-model');
 const {required, unique, usernameExists} = require('./auth-middleware');
 
 router.post('/register', required, unique, (req, res, next) => {
