@@ -17,22 +17,22 @@ test("[0] sanity check", () => {
 });
 
 describe("auth-router.js", () => {
-  // describe("POST /api/auth/register", () => {
-  //   test("[1] - creates a new user", async () => {
-  //     await request(server)
-  //       .post("/api/auth/register")
-  //       .send({ username: "baz", password: "12345" });
-  //     const baz = await db("users").where("username", "baz").first();
-  //     expect(baz).toMatchObject({ username: "baz" });
-  //   });
+  describe("POST /api/auth/register", () => {
+    test("[1] - creates a new user", async () => {
+      await request(server)
+        .post("/api/auth/register")
+        .send({ username: "baz", password: "12345" });
+      const baz = await db("users").where("username", "baz").first();
+      expect(baz).toMatchObject({ username: "baz" });
+    });
 
-  //   test("[2] - saves the user with a bcrypted password instead of plain text", async () => {
-  //     await request(server)
-  //       .post("/api/auth/register")
-  //       .send({ username: "baz", password: "12345" });
-  //     const baz = await db("users").where("username", "baz").first();
-  //     expect(bcrypt.compareSync("12345", baz.password)).toBeTruthy();
-  //   });
+    test("[2] - saves the user with a bcrypted password instead of plain text", async () => {
+      await request(server)
+        .post("/api/auth/register")
+        .send({ username: "baz", password: "12345" });
+      const baz = await db("users").where("username", "baz").first();
+      expect(bcrypt.compareSync("12345", baz.password)).toBeTruthy();
+    });
 
     test("[3] - responds with the correct error message when no username or password", async () => {
       const res = await request(server)
@@ -67,4 +67,4 @@ describe("auth-router.js", () => {
       expect(res.body.message).toMatch(/invalid credentials/i)
     }, 750)
   })
-// })
+})
