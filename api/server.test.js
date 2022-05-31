@@ -21,9 +21,9 @@ describe("auth-router.js", () => {
     test("[1] - creates a new user", async () => {
       await request(server)
         .post("/api/auth/register")
-        .send({ username: "baz", password: "12345" });
-      const baz = await db("users").where("username", "baz").first();
-      expect(baz).toMatchObject({ username: "baz" });
+        .send({ username: "foo", password: "barbaz" });
+      const baz = await db("users").where("username", "foo").first();
+      expect(baz).toMatchObject({ username: "foo" });
     });
 
     test("[2] - saves the user with a bcrypted password instead of plain text", async () => {
